@@ -1,0 +1,21 @@
+﻿.f-check-point {
+    font-size: 30px;
+    color: rgb(0, 140, 68);
+}
+.html{
+    background-color:white;
+}
+.check-point {
+    font-size: 50px;
+    color: rgb(0, 140, 68);
+}
+
+    .check-point.checked {
+        color: rgb(0, 140, 68) !important;
+        font-size: 70px !important;
+    }
+
+textarea {
+    width: 100%;
+    min-height: 100px;
+}

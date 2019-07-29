@@ -1,0 +1,217 @@
+﻿
+@{
+    ViewBag.Title = "LoanCreationResult";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title">LoanCreationResult</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div id="frm" class="card-box">
+            <h4 class="header-title">THÔNG TIN</h4>
+            <p class="m-b-30"></p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">transactionId</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="transactionId" name="transactionId" id="transactionId" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-md-2 offset-md-2">
+                            <input type="button" class="btn btn-custom form-control" onclick="Process()" value="Thực hiện lệnh" />
+                        </div>
+                        <div class="col-md-8"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="header-title">THÔNG TIN KẾT QUẢ</h4>
+                    <p class="m-b-30"></p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="lstAcc" style="border: 1px solid black;">
+                                <thead>
+                                    @*<tr>
+                                            <th></th>
+                                            <th>Mã nhân viên</th>
+                                            <th>Họ tên</th>
+                                            <th>Mã KPI</th>
+                                            <th>Kết quả</th>
+                                            <th>Ghi chú</th>
+                                        </tr>*@
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        function resetTable() {
+            $('#lstAcc').html("<thead></thead> <tbody></tbody>");
+        }
+        function buildHeader(obj) {
+            var tr = '<tr>';
+            for (var i = 0; i < Object.keys(obj).length; i++) {
+                tr += '<th style="border: 1px solid black;">' + Object.keys(obj)[i] + '</th>';
+            }
+
+            tr += '</tr>';
+            $('#lstAcc thead').append(tr);
+        }
+        function buildBody(obj) {
+            var tr = buildStringBody(obj, 0);
+
+            $('#lstAcc tbody').append(tr);
+        }
+
+        function buildStringBody(obj, subBD) {
+            if (obj != null) {
+
+                if (subBD > 0) {
+                    var tr = '<ul>';
+                    for (var i = 0; i < Object.keys(obj).length; i++) {
+                        if (typeof obj[Object.keys(obj)[i]] === 'object') {
+                            tr += buildStringBody(obj[Object.keys(obj)[i]], 1);
+                        }
+                        else {
+                            if (isNaN(obj[Object.keys(obj)[i]]) && obj[Object.keys(obj)[i]].indexOf('Date(') >= 0) {
+                                var ts = obj[Object.keys(obj)[i]].replace('/Date(', '').replace(')/', '');
+                                var date = new Date(Number(ts));
+                                tr += '<li>' + Object.keys(obj)[i] + ": " + date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear() + '</li>';
+                            }
+                            else {
+                                tr += '<li>' + Object.keys(obj)[i] + ": " + obj[Object.keys(obj)[i]] + '</li>';
+                            }
+                        }
+                    }
+                    tr += '</ul>';
+                    return tr;
+                }
+                else {
+                    var tr = '<tr>';
+                    for (var i = 0; i < Object.keys(obj).length; i++) {
+                        if (typeof obj[Object.keys(obj)[i]] === 'object') {
+                            tr += '<td style="border: 1px solid black;">' + buildStringBody(obj[Object.keys(obj)[i]], 1) + '</td>';
+                        }
+                        else {
+                            if (isNaN(obj[Object.keys(obj)[i]]) && obj[Object.keys(obj)[i]].indexOf('Date(') >= 0) {
+                                var ts = obj[Object.keys(obj)[i]].replace('/Date(', '').replace(')/', '');
+                                var date = new Date(Number(ts));
+                                tr += '<td style="border: 1px solid black;">' + date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear() + '</td>';
+                            }
+                            else {
+                                tr += '<td style="border: 1px solid black;">' + obj[Object.keys(obj)[i]] + '</td>';
+                            }
+                        }
+                    }
+                    tr += '</tr>';
+                    return tr;
+                }
+            }
+        }
+        function Process() {
+            var frm = $('#frm');
+            var inputdata = {};
+            $(frm).find('input, select').each(function () {
+                inputdata[$(this).attr('id')] = $(this).val();
+            });
+            $.ajax({
+                url: '/Home/loancreationresult',
+                type: 'POST',
+                cache: false,
+                data: inputdata,
+                beforeSend: function () {
+                    blockUI();
+                    //resetTable();
+                },
+                success: function (rs) {
+                    unBlockUI();
+                    if (rs.IsOk) {
+                        swal({
+                            title: "Thông báo",
+                            text: "Process Success : " + JSON.parse(rs.dataObj).data.transactions.transactionStatus,
+                            type: 'info',
+                            confirmButtonClass: 'btn btn-confirm mt-2'
+                        });
+                        if (rs.dataObj != undefined) {
+                            var dataObj = JSON.parse(rs.dataObj);
+                            resetTable();
+                            buildHeader(dataObj.data);
+                            buildBody(dataObj.data);
+                        }
+                        return;
+                    }
+                    else {
+                        var dataErr = JSON.parse(rs.dataErr);
+                        if (dataErr != undefined) {
+                            if (dataErr.httpCode != undefined) {
+                                swal({
+                                    title: "Thông báo",
+                                    text: dataErr.httpMessage + " - " + dataErr.moreInformation,
+                                    type: 'info',
+                                    confirmButtonClass: 'btn btn-confirm mt-2'
+                                });
+                                return;
+                                //alert(rs.dataErr.httpMessage + " - " + rs.dataErr.moreInformation);
+                            }
+                            else if (dataErr.error != undefined) {
+                                if (dataErr.error.details != undefined) {
+                                    swal({
+                                        title: "Thông báo",
+                                        text: dataErr.error.code + " - " + dataErr.error.type + " - " + dataErr.error.details + " - " + dataErr.error.location,
+                                        type: 'info',
+                                        confirmButtonClass: 'btn btn-confirm mt-2'
+                                    });
+                                    return;
+                                }
+                                else {
+                                    swal({
+                                        title: "Thông báo",
+                                        text: dataErr.error.code + " - " + dataErr.error.type + " - " + dataErr.error + " - " + dataErr.error_description,
+                                        type: 'info',
+                                        confirmButtonClass: 'btn btn-confirm mt-2'
+                                    });
+                                    return;
+                                }
+                                //alert(rs.dataErr.error.details + " - " + rs.dataErr.error.location);
+                            }
+                        }
+                        else {
+                            swal({
+                                title: "Thông báo",
+                                text: rs.Msg,
+                                type: 'info',
+                                confirmButtonClass: 'btn btn-confirm mt-2'
+                            });
+                            return;
+                        }
+                    }
+                },
+
+            });
+        }
+    </script>
+}

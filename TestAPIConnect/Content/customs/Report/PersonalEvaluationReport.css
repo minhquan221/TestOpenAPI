@@ -1,0 +1,20 @@
+﻿.personal-evaluation-report {
+    /*-moz-box-shadow: 3px 3px 5px 6px #ccc;
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+    box-shadow: 3px 3px 5px 6px #ccc;*/
+    font-family: Arial !important;
+    color: #4d4c4c !important;
+}
+
+    .personal-evaluation-report .per-title {
+        font-size:17px;
+    }
+
+    .personal-evaluation-report .per-date {
+    }
+.per-result table thead th{
+    text-align: center;
+}
+.per-result-detail table thead th {
+    text-align: center;
+}

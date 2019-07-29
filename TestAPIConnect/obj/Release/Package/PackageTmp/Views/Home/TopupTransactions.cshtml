@@ -1,0 +1,175 @@
+﻿
+@{
+    ViewBag.Title = "TopupTransactions";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title">TOPUP TRANSACTIONS</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div id="frmSearch" class="col-sm-12">
+        <h4 class="header-title">THÔNG TIN</h4>
+        <p class="m-b-30"></p>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">Từ ngày</label>
+                    <div class="col-md-6">
+                        <input class="form-control datepicker" type="text" name="fromDate" id="fromDate" autocomplete="off" />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label">Đến ngày</label>
+                    <div class="col-md-6">
+                        <input class="form-control datepicker" type="text" name="toDate" id="toDate" autocomplete="off" />
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-2"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <div class="col-md-2 offset-md-2">
+                        <input type="button" class="btn btn-custom form-control" onclick="Process()" value="Tìm kiếm" />
+                    </div>
+                    <div class="col-md-8"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table id="lstAcc" style="border: 1px solid black;">
+                    <thead>
+
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'yyyy/mm/dd'
+            });
+        })
+        function resetTable() {
+            $('#lstAcc').html("<thead></thead> <tbody></tbody>");
+        }
+        function buildHeader(obj) {
+            var tr = '<tr>';
+            for (var i = 0; i < Object.keys(obj).length; i++) {
+                tr += '<th style="border: 1px solid black;">' + Object.keys(obj)[i] + '</th>';
+            }
+            tr += '</tr>';
+            $('#lstAcc thead').append(tr);
+        }
+        function Process() {
+            var frm = $('#frmSearch');
+            var inputdata = {};
+            $(frm).find('input, select').each(function () {
+                inputdata[$(this).attr('id')] = $(this).val();
+            });
+            $.ajax({
+                url: '/Home/TopupTransactions',
+                type: 'POST',
+                cache: false,
+                data: { info: inputdata  },
+                beforeSend: function () {
+                    blockUI();
+                    resetTable();
+                },
+                success: function (rs) {
+                    unBlockUI();
+                    if (rs.dataObj !== undefined && rs.dataObj !== null && rs.dataObj != '') {
+                        rs.dataObj = JSON.parse(rs.dataObj).data.transactions;
+                    }
+                    if (rs.IsOk) {
+                        if (rs.dataObj != undefined) {
+                            buildHeader(rs.dataObj[0]);
+                        }
+                        for (var i = 0; i < rs.dataObj.length; i++) {
+                            buildBody(rs.dataObj[i]);
+                        }
+                    }
+                    else {
+                        if (rs.dataErr != undefined) {
+                            if (rs.dataErr.httpCode != undefined) {
+                                swal({
+                                    title: "Thông báo",
+                                    text: rs.dataErr.httpMessage + " - " + rs.dataErr.moreInformation,
+                                    type: 'info',
+                                    confirmButtonClass: 'btn btn-confirm mt-2'
+                                });
+                                return;
+                                //alert(rs.dataErr.httpMessage + " - " + rs.dataErr.moreInformation);
+                            }
+                            else if (rs.dataErr.error != undefined) {
+                                if (rs.dataErr.error.details != undefined) {
+                                    swal({
+                                        title: "Thông báo",
+                                        text: rs.dataErr.error.details + " - " + rs.dataErr.error.location,
+                                        type: 'info',
+                                        confirmButtonClass: 'btn btn-confirm mt-2'
+                                    });
+                                    return;
+                                }
+                                else {
+                                    swal({
+                                        title: "Thông báo",
+                                        text: rs.dataErr.error + " - " + rs.dataErr.error_description,
+                                        type: 'info',
+                                        confirmButtonClass: 'btn btn-confirm mt-2'
+                                    });
+                                    return;
+                                }
+                                //alert(rs.dataErr.error.details + " - " + rs.dataErr.error.location);
+                            }
+                        }
+                        else {
+                            swal({
+                                title: "Thông báo",
+                                text: rs.Msg,
+                                type: 'info',
+                                confirmButtonClass: 'btn btn-confirm mt-2'
+                            });
+                            return;
+                        }
+                    }
+                },
+
+            });
+        }
+
+        function buildBody(obj) {
+            var tr = '<tr>';
+            for (var i = 0; i < Object.keys(obj).length; i++) {
+                if (isNaN(obj[Object.keys(obj)[i]]) && obj[Object.keys(obj)[i]].indexOf('Date(') >= 0) {
+                    var ts = obj[Object.keys(obj)[i]].replace('/Date(', '').replace(')/', '');
+                    var date = new Date(Number(ts));
+                    tr += '<td style="border: 1px solid black;">' + date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear() + '</td>';
+                }
+                else {
+                    tr += '<td style="border: 1px solid black;">' + obj[Object.keys(obj)[i]] + '</td>';
+                }
+            }
+            tr += '</tr>';
+            $('#lstAcc tbody').append(tr);
+        }
+    </script>
+}

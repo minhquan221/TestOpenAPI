@@ -1,0 +1,178 @@
+﻿
+@{
+    ViewBag.Title = "AccountCreationResult";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title">AccountCreationResult</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div id="frmPayment" class="card-box">
+            <h4 class="header-title">THÔNG TIN</h4>
+            <p class="m-b-30"></p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Transaction Id</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="Transaction Id" name="transactionId" id="transactionId" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-md-2 offset-md-2">
+                            <input type="button" class="btn btn-custom form-control" onclick="Process()" value="Thực hiện lệnh" />
+                        </div>
+                        <div class="col-md-8"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="header-title">THÔNG TIN KẾT QUẢ</h4>
+                    <p class="m-b-30"></p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="lstAcc" style="border: 1px solid black;">
+                                <thead>
+                                    @*<tr>
+                                            <th></th>
+                                            <th>Mã nhân viên</th>
+                                            <th>Họ tên</th>
+                                            <th>Mã KPI</th>
+                                            <th>Kết quả</th>
+                                            <th>Ghi chú</th>
+                                        </tr>*@
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        function resetTable() {
+            $('#lstAcc').html("<thead></thead> <tbody></tbody>");
+        }
+        function buildHeader(obj) {
+            var tr = '<tr>';
+            for (var i = 0; i < Object.keys(obj.transaction).length; i++) {
+                tr += '<th style="border: 1px solid black;">' + Object.keys(obj.transaction)[i] + '</th>';
+            }
+            tr += '</tr>';
+            $('#lstAcc thead').append(tr);
+        }
+        function buildBody(obj) {
+            var tr = '<tr>';
+            for (var i = 0; i < Object.keys(obj.transaction).length; i++) {
+                if (isNaN(obj.transaction[Object.keys(obj.transaction)[i]]) && obj.transaction[Object.keys(obj.transaction)[i]].indexOf('Date(') >= 0) {
+                    var ts = obj.transaction[Object.keys(obj)[i]].replace('/Date(', '').replace(')/', '');
+                    var date = new Date(Number(ts));
+                    tr += '<td style="border: 1px solid black;">' + date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear() + '</td>';
+                }
+                else {
+                    tr += '<td style="border: 1px solid black;">' + obj.transaction[Object.keys(obj.transaction)[i]] + '</td>';
+                }
+            }
+            tr += '</tr>';
+            $('#lstAcc tbody').append(tr);
+        }
+        function Process() {
+            var frm = $('#frmPayment');
+            var inputdata = {};
+            $(frm).find('input, select').each(function () {
+                inputdata[$(this).attr('id')] = $(this).val();
+            });
+            $.ajax({
+                url: '/Home/AccountCreationResult',
+                type: 'POST',
+                cache: false,
+                data: { info: inputdata },
+                beforeSend: function () {
+                    blockUI();
+                    //resetTable();
+                },
+                success: function (rs) {
+                    unBlockUI();
+                    if (rs.IsOk) {
+                        swal({
+                            title: "Thông báo",
+                            text: "Process Success : " + JSON.parse(rs.dataObj).data.transactions.transactionStatus,
+                            type: 'info',
+                            confirmButtonClass: 'btn btn-confirm mt-2'
+                        });
+                        //if (rs.dataObj != undefined) {
+                        //    resetTable();
+                        //    buildHeader(rs.dataObj);
+                        //    buildBody(rs.dataObj);
+                        //}
+                        return;
+                    }
+                    else {
+                        if (rs.dataErr != undefined) {
+                            if (rs.dataErr.httpCode != undefined) {
+                                swal({
+                                    title: "Thông báo",
+                                    text: rs.dataErr.httpMessage + " - " + rs.dataErr.moreInformation,
+                                    type: 'info',
+                                    confirmButtonClass: 'btn btn-confirm mt-2'
+                                });
+                                return;
+                                //alert(rs.dataErr.httpMessage + " - " + rs.dataErr.moreInformation);
+                            }
+                            else if (rs.dataErr.error != undefined) {
+                                if (rs.dataErr.error.details != undefined) {
+                                    swal({
+                                        title: "Thông báo",
+                                        text: rs.dataErr.error.code + " - " + rs.dataErr.error.type + " - " + rs.dataErr.error.details + " - " + rs.dataErr.error.location,
+                                        type: 'info',
+                                        confirmButtonClass: 'btn btn-confirm mt-2'
+                                    });
+                                    return;
+                                }
+                                else {
+                                    swal({
+                                        title: "Thông báo",
+                                        text: rs.dataErr.error.code + " - " + rs.dataErr.error.type + " - " + rs.dataErr.error + " - " + rs.dataErr.error_description,
+                                        type: 'info',
+                                        confirmButtonClass: 'btn btn-confirm mt-2'
+                                    });
+                                    return;
+                                }
+                                //alert(rs.dataErr.error.details + " - " + rs.dataErr.error.location);
+                            }
+                        }
+                        else {
+                            swal({
+                                title: "Thông báo",
+                                text: rs.Msg,
+                                type: 'info',
+                                confirmButtonClass: 'btn btn-confirm mt-2'
+                            });
+                            return;
+                        }
+                    }
+                },
+
+            });
+        }
+    </script>
+}

@@ -1,0 +1,53 @@
+﻿#evaluationOuList tbody tr td:nth-child(2) {
+    text-align: right;
+}
+
+#pointTable {
+    width: 300px;
+}
+
+
+.check-point {
+    font-size: 50px;
+    color: rgb(0, 140, 68);
+}
+
+    .check-point.checked {
+        color: rgb(0, 140, 68) !important;
+        font-size: 70px !important;
+    }
+
+    .check-point:hover {
+        color: rgb(0, 140, 68) !important;
+        font-size: 70px !important;
+    }
+
+#evaluationTable td {
+    padding: 5px;
+}
+
+#evaluationTable thead th, #fixedHeader thead th {
+    background-color: rgb(0, 140, 68);
+    color: white;
+}
+    #evaluationTable thead th:first-child, #fixedHeader thead th:first-child {
+        padding-bottom: 20px;
+    }
+
+    #evaluationTable thead th i, #fixedHeader thead th i {
+        font-weight: normal;
+    }
+
+#evaluationTable td .checkbox.checkbox-single label {
+    height: 5px;
+}
+
+#evaluationTable td label[for] {
+    margin-bottom: 0px;
+    font-weight: normal;
+}
+
+textarea {
+    width: 100%;
+    min-height: 100px;
+}

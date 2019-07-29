@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewBag.Title = "Truy vấn thông tin vị trí của ATMs";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Truy vấn thông tin vị trí của ATMs</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div id="srhAccount" class="col-sm-12">
+        <h4 class="header-title">THÔNG TIN</h4>
+        <p class="m-b-30"></p>
+        @*<div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Signature</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="Signature" name="Signature" id="Signature" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>*@
+        @*<div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Private Key</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="Private Key" name="PrivateKey" id="PrivateKey" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>*@
+        @*<div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Certificate</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="Certificate" name="Certificate" id="Certificate" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>*@
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group row">
+                    <div class="col-md-2 offset-md-2">
+                        <input type="button" class="btn btn-custom form-control" onclick="Process()" value="Truy vấn" />
+                    </div>
+                    <div class="col-md-8"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table id="lstAcc" style="border: 1px solid black;">
+                    <thead>
+                        @*<tr>
+                                <th></th>
+                                <th>Mã nhân viên</th>
+                                <th>Họ tên</th>
+                                <th>Mã KPI</th>
+                                <th>Kết quả</th>
+                                <th>Ghi chú</th>
+                            </tr>*@
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //GetAllAccount();
+        })
+        function resetTable() {
+            $('#lstAcc').html("<thead></thead> <tbody></tbody>");
+        }
+        function buildHeader(obj) {
+            var tr = '<tr>';
+            for (var i = 0; i < Object.keys(obj).length; i++) {
+                tr += '<th style="border: 1px solid black;">' + Object.keys(obj)[i] + '</th>';
+            }
+            tr += '</tr>';
+            $('#lstAcc thead').append(tr);
+        }
+        function buildBody(obj) {
+            var tr = buildStringBody(obj, 0);
+
+            $('#lstAcc tbody').append(tr);
+        }
+
+        function buildStringBody(obj, subBD) {
+            if (subBD > 0) {
+                var tr = '<ul>';
+                for (var i = 0; i < Object.keys(obj).length; i++) {
+                    if (typeof obj[Object.keys(obj)[i]] === 'object') {
+                        tr += buildStringBody(obj[Object.keys(obj)[i]], 1);
+                    }
+                    else {
+                        if (isNaN(obj[Object.keys(obj)[i]]) && obj[Object.keys(obj)[i]].indexOf('Date(') >= 0) {
+                            var ts = obj[Object.keys(obj)[i]].replace('/Date(', '').replace(')/', '');
+                            var date = new Date(Number(ts));
+                            tr += '<li>' + Object.keys(obj)[i] + ": " + date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear() + '</li>';
+                        }
+                        else {
+                            tr += '<li>' + Object.keys(obj)[i] + ": " + obj[Object.keys(obj)[i]] + '</li>';
+                        }
+                    }
+                }
+                tr += '</ul>';
+                return tr;
+            }
+            else {
+                var tr = '<tr>';
+                for (var i = 0; i < Object.keys(obj).length; i++) {
+                    if (typeof obj[Object.keys(obj)[i]] === 'object') {
+                        tr += '<td style="border: 1px solid black;">' + buildStringBody(obj[Object.keys(obj)[i]], 1) + '</td>';
+                    }
+                    else {
+                        if (isNaN(obj[Object.keys(obj)[i]]) && obj[Object.keys(obj)[i]].indexOf('Date(') >= 0) {
+                            var ts = obj[Object.keys(obj)[i]].replace('/Date(', '').replace(')/', '');
+                            var date = new Date(Number(ts));
+                            tr += '<td style="border: 1px solid black;">' + date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear() + '</td>';
+                        }
+                        else {
+                            tr += '<td style="border: 1px solid black;">' + obj[Object.keys(obj)[i]] + '</td>';
+                        }
+                    }
+                }
+                tr += '</tr>';
+                return tr;
+            }
+        }
+
+        function Process() {
+            var frm = $('#srhAccount');
+            var inputdata = {};
+            $(frm).find('input').each(function () {
+                inputdata[$(this).attr('id')] = $(this).val();
+            });
+            $.ajax({
+                url: '/Home/AtmsLocator',
+                type: 'POST',
+                cache: false,
+                data: { info: inputdata },
+                beforeSend: function () {
+                    blockUI();
+                    resetTable();
+                },
+                success: function (rs) {
+                    unBlockUI();
+                    debugger;
+                    if (rs.IsOk) {
+                        if (rs.dataObj != undefined) {
+                            buildHeader(rs.dataObj.bankATM[0]);
+                        }
+                        for (var i = 0; i < rs.dataObj.bankATM.length; i++) {
+                            buildBody(rs.dataObj.bankATM[i]);
+                        }
+                    }
+                    else {
+                        if (rs.dataErr != undefined) {
+                            if (rs.dataErr.httpCode != undefined) {
+                                swal({
+                                    title: "Thông báo",
+                                    text: rs.dataErr.httpMessage + " - " + rs.dataErr.moreInformation,
+                                    type: 'info',
+                                    confirmButtonClass: 'btn btn-confirm mt-2'
+                                });
+                                return;
+                                //alert(rs.dataErr.httpMessage + " - " + rs.dataErr.moreInformation);
+                            }
+                            else if (rs.dataErr.error != undefined) {
+                                if (rs.dataErr.error.details != undefined) {
+                                    swal({
+                                        title: "Thông báo",
+                                        text: rs.dataErr.error.details + " - " + rs.dataErr.error.location,
+                                        type: 'info',
+                                        confirmButtonClass: 'btn btn-confirm mt-2'
+                                    });
+                                    return;
+                                }
+                                else {
+                                    swal({
+                                        title: "Thông báo",
+                                        text: rs.dataErr.error + " - " + rs.dataErr.error_description,
+                                        type: 'info',
+                                        confirmButtonClass: 'btn btn-confirm mt-2'
+                                    });
+                                    return;
+                                }
+                                //alert(rs.dataErr.error.details + " - " + rs.dataErr.error.location);
+                            }
+                        }
+                        else {
+                            swal({
+                                title: "Thông báo",
+                                text: rs.Msg,
+                                type: 'info',
+                                confirmButtonClass: 'btn btn-confirm mt-2'
+                            });
+                            return;
+                        }
+                    }
+                },
+
+            });
+        }
+    </script>
+}

@@ -1,0 +1,9 @@
+F:\TestAPI\TestAPIConnect\JWTLibrary\bin\Release\JWTLibrary.dll
+F:\TestAPI\TestAPIConnect\JWTLibrary\bin\Release\JWTLibrary.pdb
+F:\TestAPI\TestAPIConnect\JWTLibrary\bin\Release\BouncyCastle.Crypto.dll
+F:\TestAPI\TestAPIConnect\JWTLibrary\bin\Release\Newtonsoft.Json.dll
+F:\TestAPI\TestAPIConnect\JWTLibrary\bin\Release\Newtonsoft.Json.xml
+F:\TestAPI\TestAPIConnect\JWTLibrary\obj\Release\JWTLibrary.csproj.CoreCompileInputs.cache
+F:\TestAPI\TestAPIConnect\JWTLibrary\obj\Release\JWTLibrary.csproj.CopyComplete
+F:\TestAPI\TestAPIConnect\JWTLibrary\obj\Release\JWTLibrary.dll
+F:\TestAPI\TestAPIConnect\JWTLibrary\obj\Release\JWTLibrary.pdb

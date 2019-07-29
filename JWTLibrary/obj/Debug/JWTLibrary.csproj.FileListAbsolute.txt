@@ -1,0 +1,17 @@
+F:\Svn\QMTCore\QMT.Data\JWTLibrary\bin\Debug\JWTLibrary.dll
+F:\Svn\QMTCore\QMT.Data\JWTLibrary\bin\Debug\JWTLibrary.pdb
+F:\Svn\QMTCore\QMT.Data\JWTLibrary\bin\Debug\BouncyCastle.Crypto.dll
+F:\Svn\QMTCore\QMT.Data\JWTLibrary\bin\Debug\Newtonsoft.Json.dll
+F:\Svn\QMTCore\QMT.Data\JWTLibrary\bin\Debug\Newtonsoft.Json.xml
+F:\Svn\QMTCore\QMT.Data\JWTLibrary\obj\Debug\JWTLibrary.csproj.CoreCompileInputs.cache
+F:\Svn\QMTCore\QMT.Data\JWTLibrary\obj\Debug\JWTLibrary.dll
+F:\Svn\QMTCore\QMT.Data\JWTLibrary\obj\Debug\JWTLibrary.pdb
+F:\TestAPI\TestAPIConnect\JWTLibrary\bin\Debug\JWTLibrary.dll
+F:\TestAPI\TestAPIConnect\JWTLibrary\bin\Debug\JWTLibrary.pdb
+F:\TestAPI\TestAPIConnect\JWTLibrary\bin\Debug\BouncyCastle.Crypto.dll
+F:\TestAPI\TestAPIConnect\JWTLibrary\bin\Debug\Newtonsoft.Json.dll
+F:\TestAPI\TestAPIConnect\JWTLibrary\bin\Debug\Newtonsoft.Json.xml
+F:\TestAPI\TestAPIConnect\JWTLibrary\obj\Debug\JWTLibrary.csproj.CoreCompileInputs.cache
+F:\TestAPI\TestAPIConnect\JWTLibrary\obj\Debug\JWTLibrary.csproj.CopyComplete
+F:\TestAPI\TestAPIConnect\JWTLibrary\obj\Debug\JWTLibrary.dll
+F:\TestAPI\TestAPIConnect\JWTLibrary\obj\Debug\JWTLibrary.pdb

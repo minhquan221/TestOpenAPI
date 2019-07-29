@@ -1,0 +1,188 @@
+﻿@{
+    ViewBag.Title = "Generate Signature";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title">Generate Signature</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div id="frm" class="card-box">
+            <h4 class="header-title">THÔNG TIN</h4>
+            <p class="m-b-30"></p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Data String</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="datastring" id="datastring"></textarea>
+                            @*<input class="form-control" type="text" placeholder="Data String" name="datastring" id="datastring" value="" />*@
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Certificate</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="Certificate" name="Certificate" id="Certificate" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>*@
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Private Key</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="PrivateKey" id="PrivateKey"></textarea>
+                            @*<input class="form-control" type="text" placeholder="Private Key" name="PrivateKey" id="PrivateKey" value="" />*@
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">Signature</label>
+                        <div class="col-md-6">
+                            <textarea class="form-control" name="Signature" id="Signature"></textarea>
+                            @*<input class="form-control" type="text" placeholder="Signature" name="Signature" id="Signature" value="" />*@
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-md-2 offset-md-2">
+                            <input type="button" class="btn btn-custom form-control" onclick="ProcessGenerate()" value="Generate" />
+                        </div>
+                        <div class="col-md-8"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        function resetTable() {
+            $('#lstAcc').html("<thead></thead> <tbody></tbody>");
+        }
+        function buildHeader(obj) {
+            var tr = '<tr>';
+            for (var i = 0; i < Object.keys(obj.transaction).length; i++) {
+                tr += '<th style="border: 1px solid black;">' + Object.keys(obj.transaction)[i] + '</th>';
+            }
+            tr += '</tr>';
+            $('#lstAcc thead').append(tr);
+        }
+        function buildBody(obj) {
+            var tr = '<tr>';
+            for (var i = 0; i < Object.keys(obj.transaction).length; i++) {
+                if (isNaN(obj.transaction[Object.keys(obj.transaction)[i]]) && obj.transaction[Object.keys(obj.transaction)[i]].indexOf('Date(') >= 0) {
+                    var ts = obj.transaction[Object.keys(obj)[i]].replace('/Date(', '').replace(')/', '');
+                    var date = new Date(Number(ts));
+                    tr += '<td style="border: 1px solid black;">' + date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear() + '</td>';
+                }
+                else {
+                    tr += '<td style="border: 1px solid black;">' + obj.transaction[Object.keys(obj.transaction)[i]] + '</td>';
+                }
+            }
+            tr += '</tr>';
+            $('#lstAcc tbody').append(tr);
+        }
+        function ProcessGenerate() {
+            var frm = $('#frm');
+            var inputdata = {};
+            $(frm).find('input, select, textarea').each(function () {
+                inputdata[$(this).attr('id')] = $(this).val();
+            });
+            $.ajax({
+                url: '/Home/ProcessGenerate',
+                type: 'POST',
+                cache: false,
+                data: { datasign: inputdata },
+                beforeSend: function () {
+                    blockUI();
+                    //resetTable();
+                },
+                success: function (rs) {
+                    unBlockUI();
+                    if (rs.IsOk) {
+                        swal({
+                            title: "Thông báo",
+                            text: "Generate Successful",
+                            type: 'info',
+                            confirmButtonClass: 'btn btn-confirm mt-2'
+                        });
+                        $('#Signature').val(rs.dataObj);
+                        return;
+                    }
+                    else {
+                        if (rs.dataErr != undefined) {
+                            if (rs.dataErr.httpCode != undefined) {
+                                swal({
+                                    title: "Thông báo",
+                                    text: rs.dataErr.httpMessage + " - " + rs.dataErr.moreInformation,
+                                    type: 'info',
+                                    confirmButtonClass: 'btn btn-confirm mt-2'
+                                });
+                                return;
+                                //alert(rs.dataErr.httpMessage + " - " + rs.dataErr.moreInformation);
+                            }
+                            else if (rs.dataErr.error != undefined) {
+                                if (rs.dataErr.error.details != undefined) {
+                                    swal({
+                                        title: "Thông báo",
+                                        text: rs.dataErr.error.code + " - " + rs.dataErr.error.type + " - " + rs.dataErr.error.details + " - " + rs.dataErr.error.location,
+                                        type: 'info',
+                                        confirmButtonClass: 'btn btn-confirm mt-2'
+                                    });
+                                    return;
+                                }
+                                else {
+                                    swal({
+                                        title: "Thông báo",
+                                        text: rs.dataErr.error.code + " - " + rs.dataErr.error.type + " - " + rs.dataErr.error + " - " + rs.dataErr.error_description,
+                                        type: 'info',
+                                        confirmButtonClass: 'btn btn-confirm mt-2'
+                                    });
+                                    return;
+                                }
+                                //alert(rs.dataErr.error.details + " - " + rs.dataErr.error.location);
+                            }
+                        }
+                        else {
+                            swal({
+                                title: "Thông báo",
+                                text: rs.Msg,
+                                type: 'info',
+                                confirmButtonClass: 'btn btn-confirm mt-2'
+                            });
+                            return;
+                        }
+                    }
+                },
+
+            });
+        }
+    </script>
+}

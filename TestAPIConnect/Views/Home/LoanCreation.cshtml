@@ -1,0 +1,638 @@
+﻿
+@{
+    ViewBag.Title = "LoanCreation";
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <h4 class="page-title">LoanCreation</h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div id="frmPayment" class="card-box">
+            <h4 class="header-title">THÔNG TIN</h4>
+            <p class="m-b-30"></p>
+            <h4 class="header-title">Customer</h4>
+            <p class="m-b-30"></p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">fullname</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="fullname" name="customer.fullname" id="customer.fullname" value="@ViewBag.AccountNumber" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">birthday</label>
+                        <div class="col-md-6">
+                            <input class="form-control datepicker" type="text" name="customer.birthday" id="customer.birthday" autocomplete="off" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">maritalStatus</label>
+                        <div class="col-md-6">
+                            <select class="form-control" id="customer.maritalStatus" name="customer.maritalStatus">
+                                <option value="1">Đã lập gia đình</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">nationality</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="nationality" id="customer.nationality" name="customer.nationality" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">branchCode</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="branchCode" id="customer.branchCode" name="customer.branchCode" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">professionalCode</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="professionalCode" id="customer.jobInfo.professionalCode" name="customer.jobInfo.professionalCode" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">legalNumber</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="legalNumber" id="customer.legal.legalNumber" name="customer.legal.legalNumber" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">lssuedDate</label>
+                        <div class="col-md-6">
+                            <input class="form-control datepicker" type="text" placeholder="lssuedDate" id="customer.legal.lssuedDate" name="customer.legal.lssuedDate" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">lssuedPlace</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="lssuedPlace" id="customer.legal.lssuedPlace" name="customer.legal.lssuedPlace" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+            <h4 class="header-title">contactAddress</h4>
+            <p class="m-b-30"></p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">address1</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="address1" id="customer.contactInfo.contactAddress.address1" name="customer.contactInfo.contactAddress.address1" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">address2</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="address2" id="customer.contactInfo.contactAddress.address2" name="customer.contactInfo.contactAddress.address2" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">address3</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="address3" id="customer.contactInfo.contactAddress.address3" name="customer.contactInfo.contactAddress.address3" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">ward</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="ward" id="customer.contactInfo.contactAddress.ward" name="customer.contactInfo.contactAddress.ward" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">district</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="district" id="customer.contactInfo.contactAddress.district" name="customer.contactInfo.contactAddress.district" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">city</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="city" id="customer.contactInfo.contactAddress.city" name="customer.contactInfo.contactAddress.city" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+            <h4 class="header-title">permanentAddress</h4>
+            <p class="m-b-30"></p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">address1</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="address1" id="customer.contactInfo.permanentAddress.address1" name="customer.contactInfo.permanentAddress.address1" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">address2</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="address2" id="customer.contactInfo.permanentAddress.address2" name="customer.contactInfo.permanentAddress.address2" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">address3</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="address3" id="customer.contactInfo.permanentAddress.address3" name="customer.contactInfo.permanentAddress.address3" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">ward</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="ward" id="customer.contactInfo.permanentAddress.ward" name="customer.contactInfo.permanentAddress.ward" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">district</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="district" id="customer.contactInfo.permanentAddress.district" name="customer.contactInfo.permanentAddress.district" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">city</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="city" id="customer.contactInfo.permanentAddress.city" name="customer.contactInfo.permanentAddress.city" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">email</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="email" id="email" name="email" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">mobile</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="mobile" id="mobile" name="mobile" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="header-title">SPOUSE</h4>
+            <p class="m-b-30"></p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">fullname</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="fullname" name="spouse.fullname" id="spouse.fullname" value="@ViewBag.AccountNumber" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">birthday</label>
+                        <div class="col-md-6">
+                            <input class="form-control datepicker" type="text" name="spouse.birthday" id="spouse.birthday" autocomplete="off" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">maritalStatus</label>
+                        <div class="col-md-6">
+                            <select class="form-control" id="spouse.maritalStatus" name="spouse.maritalStatus">
+                                <option value="1">Đã lập gia đình</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">nationality</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="nationality" id="spouse.nationality" name="spouse.nationality" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">professionalCode</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="professionalCode" id="spouse.jobInfo.professionalCode" name="spouse.jobInfo.professionalCode" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">legalNumber</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="legalNumber" id="spouse.legal.legalNumber" name="spouse.legal.legalNumber" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">lssuedDate</label>
+                        <div class="col-md-6">
+                            <input class="form-control datepicker" type="text" placeholder="lssuedDate" id="spouse.legal.lssuedDate" name="spouse.legal.lssuedDate" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">lssuedPlace</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="lssuedPlace" id="spouse.legal.lssuedPlace" name="spouse.legal.lssuedPlace" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+            <h4 class="header-title">LOAN</h4>
+            <p class="m-b-30"></p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">totalIncomePerMonth</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="totalIncomePerMonth" id="loan.totalIncomePerMonth" name="loan.totalIncomePerMonth" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">realEstateProject</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="realEstateProject" id="loan.realEstateProject" name="loan.realEstateProject" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">collateralAmount</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="collateralAmount" id="loan.collateralAmount" name="loan.collateralAmount" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <label class="col-md-2 col-form-label">loanAmount</label>
+                        <div class="col-md-6">
+                            <input class="form-control" type="text" placeholder="loanAmount" id="loan.loanAmount" name="loan.loanAmount" value="" />
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group row">
+                        <div class="col-md-2 offset-md-2">
+                            <input type="button" class="btn btn-custom form-control" onclick="Process()" value="Thực hiện lệnh" />
+                        </div>
+                        <div class="col-md-8"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4 class="header-title">THÔNG TIN KẾT QUẢ</h4>
+                    <p class="m-b-30"></p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="lstAcc" style="border: 1px solid black;">
+                                <thead>
+                                    @*<tr>
+                                    <th></th>
+                                    <th>Mã nhân viên</th>
+                                    <th>Họ tên</th>
+                                    <th>Mã KPI</th>
+                                    <th>Kết quả</th>
+                                    <th>Ghi chú</th>
+                                </tr>*@
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'yyyy/mm/dd'
+            });
+        })
+        function resetTable() {
+            $('#lstAcc').html("<thead></thead> <tbody></tbody>");
+        }
+        function buildHeader(obj) {
+            var tr = '<tr>';
+            for (var i = 0; i < Object.keys(obj.transaction).length; i++) {
+                tr += '<th style="border: 1px solid black;">' + Object.keys(obj.transaction)[i] + '</th>';
+            }
+            tr += '</tr>';
+            $('#lstAcc thead').append(tr);
+        }
+        function buildBody(obj) {
+            var tr = '<tr>';
+            for (var i = 0; i < Object.keys(obj.transaction).length; i++) {
+                if (isNaN(obj.transaction[Object.keys(obj.transaction)[i]]) && obj.transaction[Object.keys(obj.transaction)[i]].indexOf('Date(') >= 0) {
+                    var ts = obj.transaction[Object.keys(obj)[i]].replace('/Date(', '').replace(')/', '');
+                    var date = new Date(Number(ts));
+                    tr += '<td style="border: 1px solid black;">' + date.getDay() + "-" + date.getMonth() + "-" + date.getFullYear() + '</td>';
+                }
+                else {
+                    tr += '<td style="border: 1px solid black;">' + obj.transaction[Object.keys(obj.transaction)[i]] + '</td>';
+                }
+            }
+            tr += '</tr>';
+            $('#lstAcc tbody').append(tr);
+        }
+        function Process() {
+            var frm = $('#frmPayment');
+            var inputdata = {};
+            $(frm).find('input, select').each(function () {
+                inputdata[$(this).attr('id')] = $(this).val();
+            });
+            $.ajax({
+                url: '/Home/LoanCreation',
+                type: 'POST',
+                cache: false,
+                data: inputdata,
+                beforeSend: function () {
+                    blockUI();
+                    //resetTable();
+                },
+                success: function (rs) {
+                    unBlockUI();
+                    if (rs.dataObj != undefined && rs.dataObj != null) {
+                        rs.dataObj = JSON.parse(rs.dataObj);
+                    }
+                    if (rs.dataErr != undefined && rs.dataErr != null) {
+                        rs.dataErr = JSON.parse(rs.dataErr);
+                    }
+                    if (rs.IsOk) {
+                        swal({
+                            title: "Thông báo",
+                            text: "Process Success : " + rs.dataObj.trace.clientTransId,
+                            type: 'info',
+                            confirmButtonClass: 'btn btn-confirm mt-2'
+                        });
+                        if (rs.dataObj != undefined) {
+                            resetTable();
+                            buildHeader(rs.dataObj);
+                            buildBody(rs.dataObj);
+                        }
+                        return;
+                    }
+                    else {
+                        if (rs.dataErr != undefined) {
+                            if (rs.dataErr.httpCode != undefined) {
+                                swal({
+                                    title: "Thông báo",
+                                    text: rs.dataErr.httpMessage + " - " + rs.dataErr.moreInformation,
+                                    type: 'info',
+                                    confirmButtonClass: 'btn btn-confirm mt-2'
+                                });
+                                return;
+                                //alert(rs.dataErr.httpMessage + " - " + rs.dataErr.moreInformation);
+                            }
+                            else if (rs.dataErr.error != undefined) {
+                                if (rs.dataErr.error.details != undefined) {
+                                    swal({
+                                        title: "Thông báo",
+                                        text: rs.dataErr.error.code + " - " + rs.dataErr.error.type + " - " + rs.dataErr.error.details + " - " + rs.dataErr.error.location,
+                                        type: 'info',
+                                        confirmButtonClass: 'btn btn-confirm mt-2'
+                                    });
+                                    return;
+                                }
+                                else {
+                                    swal({
+                                        title: "Thông báo",
+                                        text: rs.dataErr.error.code + " - " + rs.dataErr.error.type + " - " + rs.dataErr.error + " - " + rs.dataErr.error_description,
+                                        type: 'info',
+                                        confirmButtonClass: 'btn btn-confirm mt-2'
+                                    });
+                                    return;
+                                }
+                                //alert(rs.dataErr.error.details + " - " + rs.dataErr.error.location);
+                            }
+                        }
+                        else {
+                            swal({
+                                title: "Thông báo",
+                                text: rs.Msg,
+                                type: 'info',
+                                confirmButtonClass: 'btn btn-confirm mt-2'
+                            });
+                            return;
+                        }
+                    }
+                },
+
+            });
+        }
+    </script>
+}

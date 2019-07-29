@@ -1,0 +1,44 @@
+﻿<div id="login-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="custom-width-modalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h2 class="text-uppercase text-center m-b-40">
+                    <a href="index.html" class="text-success">
+                        <span><img src="~/Content/assets/images/logo.png" alt="" height="40"></span>
+                    </a>
+                </h2>
+
+                <form class="form-horizontal" action="#">
+
+                    <div class="form-group">
+                        <div class="col-12 text-center">
+                            <label class="">Phiên đăng nhập hết hạn, vui lòng đăng nhập lại để tiếp tục</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group m-b-25">
+                        <div class="col-12">
+                            <label for="userId">User</label>
+                            <input class="form-control" type="text" autofocus id="userId" required="" placeholder="Nhập user">
+                        </div>
+                    </div>
+
+                    <div class="form-group m-b-25">
+                        <div class="col-12">
+                            <label for="password">Mật khẩu</label>
+                            <input class="form-control" type="password" required="" id="password" placeholder="Nhập mật khẩu">
+                        </div>
+                    </div>
+
+                    <div class="form-group account-btn text-center m-t-10">
+                        <div class="col-6 offset-3">
+                            <button class="btn btn-block btn-custom" type="button" onclick="doAjaxLogin()" >Đăng nhập</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

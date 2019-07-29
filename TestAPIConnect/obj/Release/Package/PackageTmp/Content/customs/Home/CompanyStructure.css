@@ -1,0 +1,28 @@
+﻿.sk-rect{
+    height:40px !important;
+}
+
+.steps .fa-check {
+    color: rgb(0, 140, 68);
+}
+.steps .current .fa-check {
+    color: white;
+}
+
+.steps .sync-btn {
+    background-color: rgb(0, 140, 68);
+    color: white;
+}
+
+.steps .current .sync-btn {
+    background-color: white;
+    color: black;
+}
+
+.steps .sk-rect {
+    background-color: rgb(0, 140, 68);
+}
+
+.steps .current .sk-rect {
+    background-color: white;
+}

@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>TEST API</title>
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/Content/assets/images/icon_ocb.png?id=4">
+
+    <!-- App css -->
+    <link href="~/Content/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css?id=1" rel="stylesheet" />
+    <link href="~/Content/plugins/spinkit/spinkit.css?id=1" rel="stylesheet" type="text/css" />
+    <link href="~/Content/plugins/sweet-alert/sweetalert2.min.css?id=1" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/css/bootstrap.min.css?id=1" rel="stylesheet" type="text/css">
+    <link href="~/Content/assets/css/icons.css?id=1" rel="stylesheet" type="text/css">
+    <link href="~/Content/plugins/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/datatablejs/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/datatablejs/fixedHeader.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/datatablejs/fixedColumns.bootstrap4.min.css" rel="stylesheet" />
+    @RenderSection("styles", required: false)
+
+    <link href="~/Content/assets/css/style.css?id=2" rel="stylesheet" type="text/css">
+    <link href="~/Content/customs/Layout.css?id=2" rel="stylesheet" type="text/css">
+
+    <script src="~/Content/assets/js/modernizr.min.js?id=1"></script>
+    <!-- Begin page -->
+</head>
+<body>
+    <header id="topnav">
+        <div class="topbar-main">
+            <div class="container-fluid">
+                <div class="logo">
+                    <!-- <a href="index.html" class="logo">
+                        <span class="logo-small"><i class="mdi mdi-radar"></i></span>
+                        <span class="logo-large"><i class="mdi mdi-radar"></i> Highdmin</span>
+                    </a> -->
+                    <!-- Image Logo -->
+                    <a href="../Home/Index" class="logo">
+                        <img src="" alt="">
+                    </a>
+
+                </div>
+                <div class="menu-extras topbar-custom">
+
+                    <ul class="list-unstyled topbar-right-menu float-right mb-0">
+                        <li class="menu-item">
+                        </li>
+                        <li>
+                            <a class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+                        </li>
+                        <li class="menu-item">
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- end menu-extras -->
+
+                <div class="clearfix"></div>
+
+            </div> <!-- end container -->
+        </div>
+        <!-- end topbar-main -->
+
+        <div class="navbar-custom">
+            <div class="container-fluid">
+                <div id="navigation">
+                    <!-- Navigation Menu-->
+                    <ul class="navigation-menu"></ul>
+                    <!-- End navigation menu -->
+                </div> <!-- end #navigation -->
+            </div> <!-- end container -->
+        </div> <!-- end navbar-custom -->
+    </header>
+    <div class="wrapper">
+        <div class="container-fluid">
+            @RenderBody()
+        </div>
+    </div>
+    <!-- jQuery  -->
+
+    <script src="~/Content/assets/js/jquery.min.js?id=1"></script>
+    <script src="~/Content/assets/js/popper.min.js?id=1"></script>
+    <script src="~/Content/assets/js/bootstrap.min.js?id=1"></script>
+    <script src="~/Content/assets/js/waves.js?id=1"></script>
+    <script src="~/Content/assets/js/jquery.slimscroll.js?id=1"></script>
+
+    <!-- Insert thư viện cần ở đây -->
+    <!-- App js -->
+    <script src="~/Content/assets/js/jquery.core.js?id=1"></script>
+    <script src="~/Content/assets/js/jquery.app.js?id=1"></script>
+    <script src="~/Content/plugins/sweet-alert/sweetalert2.min.js?id=1"></script>
+    <script src="~/Content/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js?id=1"></script>
+    <script src="~/Content/plugins/select2/js/select2.min.js"></script>
+    <script src="~/Content/plugins/moment/moment.js"></script>
+    <script src="~/Content/plugins/bootstrap-3-typeahead/bootstrap3-typeahead.min.js"></script>
+    <script src="~/Content/plugins/autoNumeric/autoNumeric.js?id=1"></script>
+    <script src="~/Content/plugins/datatablejs/jquery.dataTables.min.js?id=1"></script>
+    <script src="~/Content/plugins/datatablejs/dataTables.bootstrap4.min.js?id=1"></script>
+    <script src="~/Content/plugins/datatablejs/dataTables.fixedHeader.min.js?id=1"></script>
+    <script src="~/Content/plugins/datatablejs/dataTables.fixedColumns.min.js?id=1"></script>
+    <script src="~/Scripts/Layout.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajaxSetup({
+                error: function (x, status, error) {
+                    if (x.status == 403) {
+                        window.location.href = "/Account/Login";
+                    }
+
+                }
+            });
+        })
+    </script>
+    @RenderSection("scripts", required: false)
+
+    <div id="maskBoxes" class="" tabindex="-1" style="display:none;">
+        <div id="maskBoxesFake"></div>
+        <div class="maskBoxeContent">
+            <div class="col-12">
+                <div class="sk-wave">
+                    <div class="sk-rect sk-rect1"></div>
+                    <div class="sk-rect sk-rect2"></div>
+                    <div class="sk-rect sk-rect3"></div>
+                    <div class="sk-rect sk-rect4"></div>
+                    <div class="sk-rect sk-rect5"></div>
+                </div>
+            </div>
+            <span id="msgLoading"></span>
+        </div>
+
+    </div>
+</body>
+</html>

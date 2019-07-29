@@ -1,0 +1,89 @@
+﻿#list1 thead th {
+    background-color: rgb(0, 140, 68);
+    color: white;
+    border: solid 1px gray;
+}
+
+#list1 td {
+    border: solid 1px gray;
+    padding: 5px;
+}
+
+#list1 {
+    background-color: white;
+}
+
+#list2 thead th {
+    background-color: rgb(0, 140, 68);
+    color: white;
+    border: solid 1px gray;
+}
+
+#list2 td {
+    border: solid 1px gray;
+    padding: 5px;
+}
+
+#list2 {
+    background-color: white;
+    width: 100%;
+}
+
+#deXuat {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    #deXuat td, th {
+        border: solid 1px;
+    }
+
+    #deXuat thead th, #deXuat thead td {
+        background-color: rgb(0, 140, 68);
+        color: #fff;
+        font-weight: bold;
+    }
+
+    #deXuat th, #deXuat td {
+        border-color: gray;
+    }
+
+thead td, thead th {
+    text-align: center;
+}
+
+textarea {
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+input[type=button] {
+    min-width: 80px;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+table td {
+    padding: 5px;
+}
+
+.gray {
+    background-color: lightgray;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.number, .date, .currentcy {
+    width: 87%;
+}
+

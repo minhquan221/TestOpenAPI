@@ -1,0 +1,13 @@
+﻿#list_wrapper .dataTables_scrollBody {
+    height: auto !important;
+}
+
+.proportion{
+    width: 145px;
+}
+
+.remove{
+    font-size: 30px;
+    color:red;
+    cursor: pointer;
+}
